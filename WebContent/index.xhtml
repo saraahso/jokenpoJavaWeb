@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>IFPR</title>
+	
+</h:head>
+<h:body>
+<h:outputStylesheet name="assets/css/bootstrap.min.css" />
+	<h:outputStylesheet name="assets/css/css.css" />
+	
+	<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#"> <img alt="Brand"
+				src="http://pinhais.ifpr.edu.br/wp-content/uploads/2017/03/ifpr_logo2.png" />
+			</a>
+		</div>
+		<p>
+			<h:outputText value="|   JOKENPO" />
+		</p>
+	</div>
+	</nav>
+
+	<div class="container">
+		<h:form id="formpai">
+			<div class="row">
+				<div class="media">
+					<div class="media-left media-middle">
+						<a href="#"><img src="resources/assets/images/logoJokenpo.png"
+							style="width: 140px;" /></a>
+					</div>
+					<div class="media-body">
+						<h2 class="media-heading">Entre e jogue Jokenpo online</h2>
+					</div>
+				</div>
+
+
+				<h:outputText class="labelTxtEntrar" value="Login: " for="txtLogin" />
+				<p:inputText id="txtLoginEntrar" class="form-control"
+					value="#{controleJogo.usuario.login}" />
+
+				<h:outputText class="labelTxtEntrar" value="Senha: " for="txtSenha" />
+				<p:password id="txtSenhaEntrar" class="form-control"
+					value="#{controleJogo.usuario.senha}" />
+
+				<p:commandButton value="Entrar" class="btn btn-default"
+					action="#{controleJogo.envia}"></p:commandButton>
+
+			</div>
+			<div class="row">
+				<h3>Faça seu Cadastro Aqui. É rápido e fácil</h3>
+				<p:commandButton value="Cadastrar" class="btn btn-default"
+					action="#{controleJogo.mostrarCadastro}" update="formpai" />
+
+
+
+				<p:panel rendered="#{controleJogo.cadastro}">
+					<h1>Cadastro de Usuários</h1>
+
+
+					<h:outputText class="labelTxt" value="Nome: " for="txtNome" />
+					<p:inputText id="txtNome" class="form-control"
+						value="#{controleJogo.usuario.nome}" />
+
+					<h:outputText class="labelTxt" value="Login: " for="txtLogin" />
+					<p:inputText id="txtLogin" class="form-control"
+						value="#{controleJogo.usuario.login}" />
+
+					<h:outputText class="labelTxt" value="Senha:" for="txtSenha" />
+					<p:password id="txtSenha" class="form-control"
+						value="#{controleJogo.usuario.senha}" />
+
+					<p:commandButton value="Cadastrar" class="btn btn-default"
+						actionListener="#{controleJogo.cadastrar}"
+						update="formpai" />
+
+				</p:panel>
+			</div>
+
+		</h:form>
+	</div>
+</h:body>
+</html>

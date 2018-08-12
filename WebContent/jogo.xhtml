@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>IFPR</title>
+
+</h:head>
+<h:body>
+
+	<h:outputStylesheet name="assets/css/bootstrap.min.css" />
+	<h:outputStylesheet name="assets/css/css.css" />
+
+	<script type="text/javascript">
+		function handleDrop(event, ui) {
+			var partidas = ui.draggable;
+
+			partidas.fadeOut('fast');
+		}
+	</script>
+
+	<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#"> <img alt="Brand"
+				src="http://pinhais.ifpr.edu.br/wp-content/uploads/2017/03/ifpr_logo2.png" />
+			</a>
+		</div>
+		<p>
+			<h:outputText value="|   JOKENPO" />
+		</p>
+	</div>
+	</nav>
+
+	<div class="container titulo">
+		Olá,
+		<h:outputText value="#{controleJogo.usuario.login}"></h:outputText>
+	</div>
+
+	<h:form id="formpai">
+		<div class="container">
+			<p:poll interval="2" listener="#{controleJogo.atualizarPartidas}"
+				update="usuarios" />
+
+			<h:outputText class="usuarios" value="Selecione um jogador: "
+				for="usuarios" />
+
+			<p:selectOneMenu id="usuarios" value="#{controleJogo.conversando}"
+				converter="usuarioConverter" class="form-control selectHorrivel"
+				effect="fade">
+				<f:selectItems value="#{controleJogo.dados.usuarios}" var="usuario"
+					itemLabel="#{usuario.nome}" itemValue="#{usuario}" />
+			</p:selectOneMenu>
+
+			<p:selectOneMenu id="jogada"
+				value="#{controleJogo.jogadaSelecionada}"
+				class="form-control selectHorrivel" effect="fade">
+				<f:selectItem itemLabel="Selecione uma jogada" />
+				<f:selectItems value="#{controleJogo.jogadas}" var="jogada"
+					itemLabel="#{jogada}" itemValue="#{jogada}" />
+				<f:ajax execute="jogada" render="textbox" />
+			</p:selectOneMenu>
+
+			<p:commandButton value="Selecionar" class="btn btn-default"
+				actionListener="#{controleJogo.enviarJogada}" update="formpai" />
+
+			<div class="row">
+				<h:outputText id="textbox" rendered="#{controleJogo.mostrarVencedor}"
+					value="O vencedor foi o jogador #{controleJogo.vencedor}"></h:outputText>
+			</div>
+		</div>
+	</h:form>
+
+</h:body>
+</html>
